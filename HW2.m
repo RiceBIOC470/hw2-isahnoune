@@ -15,15 +15,25 @@ zz = meannonan(xx);
 %zz is a single number (the average of all non-NaN entries in xx). Explain
 %this behavior. 
 
+%For yy, the mean function is simply taking the average of each separate column, with the exception of Column 2, given the inclusion of the NaN. 
+%For zz, the meannonan function is using the functions "isnan" and "isinf" to evaluate whether there are values that are NaN or infinite, respectively.
+%This therefore excludes the NaN in the second column and takes the average of everything else, yielding just one number instead
+of a vector.
+
 % Part 2. Modify the meannonan code so that it behaves as the mean function
 % and produces a row vector where each entry is the average of each column
 % and in the column with a NaN, this NaN is ignored. 
+
+%Code is in the repository
+
 
 %% Problem 2. ORFs using functions
 % In this problem we will use functions to simplify and extend our code from HW1, prob 2 
 
 % Part 1. Fill in the function randdnaseq.m in this repository so that it returns a random sequence
 % of length N. 
+N = 100;
+randomSeq = randdnaseq(N);
 
 % Part 2. Fill in the function findORF.m in this repository so that takes any dna
 % sequence as an input and returns the length of the longest open
@@ -33,20 +43,37 @@ zz = meannonan(xx);
 % sequence is uppercase, lowercase, or some mixture. The builtin MATLAB functions
 % lower and upper could be useful for this. 
 
+dnaseq = randdnaseq(N);
+[ORFlength, start_pos, stop_pos] = findORF(dnaseq);
+
 % Part 3. Write another function called probabilityORF that utilizes the functions from 
 % Parts 1 and 2. It should take two inputs - a sequence length (N) and an length  of an ORF (N_ORF) and
 % returns the probability that that a sequence of length N contains an ORF
 % of at least length N_ORF
+
+prob = probabilityORF(N, N_ORF);
 
 % Part4. Write  a final function called plotProbabilityORF.m which takes
 % N_ORF as an argument and makes a plot of the probabily of having an
 % ORF at least this long as a function of the dnasequence length. Decide how the
 % code should determine the lengths of dna sequence to test and implement
 % your decision. 
+N = 10;
+plotProbabilityORF(N);
 
 % Part 5. Write code that uses your function from part 4 to make a single
 % plot with separate curves for ORF lengths 100,200,300,and 400. Make sure
 % your plot has appropriate axis labels and legend. 
+
+figure;
+plotProbabilityORF(100);
+hold on;
+plotProbabilityORF(200);
+hold on;
+plotProbabilityORF(300);
+hold on;
+plotProbabilityORF(400);
+hold off;
 
 %% Problem 3. Codon translation and optimization
 
@@ -62,13 +89,21 @@ zz = meannonan(xx);
 % which reading frame to use). Make your code returns an error and
 % appropriate message if frame isn't 1,2, or 3. 
 
+N = 300;
+dnaseq = randdnaseq(N);
+frame = 2;
+
+protein = dna2protein(dnaseq,frame);
+
 
 % Part 2. Write code to turn your protein sequence back into DNA sequence.
 % Call your function protein2dna.m
 % Notice that there isn't a unique way to do this. For example, there are 4
 % different codons that correspond to the amino acid Gly. For a first pass,
 % choose one of these codons at random.
-%
+
+dnaseq = protein2dna(dnaseq)
+
 % Part 3. The third column of the codons.csv file contains the frequency of
 % this codon's use in the human proteome in units of number of appearances per
 % thousand codons. Some codons are used more than others. For example,
