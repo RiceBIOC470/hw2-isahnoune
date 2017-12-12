@@ -1,3 +1,16 @@
+%GB comments
+1a 100
+1b 100
+2a 100
+2b 100 
+2c 100
+2d 90 figure missing labels
+2e 90 figure missing labels
+3a 80 does not completely work. I get error messages
+3b. 100
+3d 100
+overall: 96
+
 %% Problem 1. 
 % in the repository you will find the meannonan.m function we discussed in
 % class which produced the mean of a vector of numbers that ignores values
